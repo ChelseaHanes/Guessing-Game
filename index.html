@@ -46,27 +46,23 @@
     </div>
 
     <script>
-        //creates an algorithm to assign a random number//
+        
         let randomNumber = Math.floor(Math.random() *100) +1;
-        //constants can not be changed like variables, used to store html elements it is referencing to parts of the UI//
         const guesses = document.querySelector(".guesses");
         const lastResult = document.querySelector(".lastResult");
         const lowOrHi = document.querySelector(".lowOrHi");
-
         const guessSumbit = document.querySelector(".guessSumbit");
         const guessField = document.querySelector(".guessField");
-
         let guessCount = 1;
         let resetButton;
 
         function checkGuess(){
             const userGuess = Number(guessField.value);
-            //conditional code blocks allow you to run a code selectively, depending on if the code is true or not//
             if (guessCount === 1) {
-                guesses.textContent = "Previous guessses:";
+                guesses.textContent = "Previous guessses: ";
             }
 
-            guesses.textContent = `${guesses.textContent} ${userGuess}`;
+            guesses.textContent += userGuess + ' ';
 
             if (userGuess === randomNumber){
                 lastResult.textContent = "Congratulations! You got it right!";
@@ -86,14 +82,11 @@
                     lowOrHi.textContent = "Last guess was too high";
                 }
             }
-
             guessCount++; //adds one to the guess count variable - only have 10 guesses//
-            guessField.value =""; 
+            guessField.value = ""; 
             guessField.focus();
         }
-        /*Events are things that happen in the browser like clicking a button
-        this will run blocks of code called Event Listeners- which observe specific events
-        these are called event handlers*/
+       
         guessSumbit.addEventListener("click", checkGuess);
 
         function setGameOver() {
@@ -104,29 +97,20 @@
             document.body.apend(resetButton);
             resetButton.addEventListener("click", resetGame);
         }
-        /*this function above disables the guessing field and submit button and 
-        creates a new element the reset button. The last line will run a function called 
-        resetGame when the reset button is clicked
-
-        the function below will restart the counter, empties the para elements and guessing field as well 
-        as generate a new random number*/
 
         function resetGame() {
             guessCount = 1;
-
             const resetParas = document.querySelectAll(".resultParas p");
             for (const resetParas of resetParas){
                 resetPara.textContent = "";
             }
+          
             resetButton.parentNode.removeChild(resetButton);
-
             guessField.disable = false;
             guessSumbit.disable = false;
             guessField.value = "";
             guessField.focus();
-
             lastResult.style.backgroundColor = "white";
-
             randomNumber = Math.floor(Math.random()*100) +1;
         }
 
